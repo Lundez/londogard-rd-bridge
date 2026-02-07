@@ -30,10 +30,16 @@ const MANIFEST = {
 
 /**
  * Mock function to get magnet hash from IMDb ID
- * In a real implementation, this would query a database or API
+ * 
+ * In production, this should be replaced with a real implementation that:
+ * - Queries a torrent indexer API (e.g., Jackett, Prowlarr, torznab)
+ * - Searches torrent databases by IMDb ID
+ * - Returns a valid magnet URI with proper info hash
+ * 
+ * Expected return format: magnet:?xt=urn:btih:{40-char-hash}&dn={name}
  */
 function getHash(imdbId: string): string {
-  // Mock magnet link - in production this would fetch real data
+  // Mock magnet link - replace this with actual torrent lookup
   return `magnet:?xt=urn:btih:MOCK${imdbId}&dn=Mock+Movie`;
 }
 
@@ -74,7 +80,8 @@ async function fetchRDStream(apiKey: string, magnetLink: string): Promise<string
 
     const torrentInfo = await torrentInfoResponse.json() as { links: string[] };
 
-    // Step 3: Get the first available link (simplified logic)
+    // Step 3: Get the first available link
+    // TODO: Implement logic to select the best file (e.g., largest video file)
     if (!torrentInfo.links || torrentInfo.links.length === 0) {
       console.error('No links available in torrent');
       return null;
@@ -143,8 +150,8 @@ async function handleStream(apiKey: string, type: string, id: string): Promise<R
   const streamResponse = {
     streams: [
       {
-        name: 'Londo',
-        title: '4K',
+        name: 'LondoBridge',
+        title: 'Real-Debrid',
         url: directLink,
       },
     ],
