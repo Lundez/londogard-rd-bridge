@@ -13,6 +13,8 @@ worker/
 
 # TypeScript
 *.tsbuildinfo
+src/*.js
+src/**/*.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
