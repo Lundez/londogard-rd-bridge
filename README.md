@@ -27,12 +27,44 @@ npm install
 npm run dev
 ```
 
+### Local Health Check
+With the worker running, verify both manifest and stream routes:
+
+```bash
+npm run check:local -- YOUR_RD_API_KEY tt0133093
+```
+
+Optional environment variables:
+- `BASE_URL` (default: `http://localhost:8787`)
+- `RD_API_KEY` (alternative to CLI arg)
+- `IMDB_ID` (default: `tt0133093`)
+- `TIMEOUT_MS` (default: `10000`)
+
 ### Deployment
 ```bash
 npm run deploy
 ```
 
 ## Usage
+
+### Test with Stremio (Local)
+1. Start local worker:
+	```bash
+	npm run dev
+	```
+2. Verify manifest quickly:
+	```bash
+	curl http://localhost:8787/YOUR_RD_API_KEY/manifest.json
+	```
+3. Add addon in Stremio using:
+	```
+	http://localhost:8787/YOUR_RD_API_KEY/manifest.json
+	```
+
+If Stremio keeps loading forever on manifest:
+- Ensure `npm run dev` is actively running in a terminal
+- Run `npm run check:local -- YOUR_RD_API_KEY` to validate endpoint responses
+- If local networking is blocked, deploy and use the `workers.dev` manifest URL instead
 
 ### Manifest Endpoint
 ```
